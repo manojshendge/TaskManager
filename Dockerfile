@@ -43,8 +43,9 @@ RUN mkdir -p /var/www/database && touch /var/www/database/database.sqlite \
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# Laravel cache prep
+# Run migrations and then cache configs
 RUN php artisan config:clear \
+    && php artisan migrate --force \
     && php artisan cache:clear \
     && php artisan config:cache \
     && php artisan route:cache \
