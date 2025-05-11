@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Create database folder and SQLite file
+# ✅ Create SQLite DB file at correct path
 mkdir -p /var/www/database
 touch /var/www/database/database.sqlite
 
-# Laravel setup
+# ✅ Fix permissions
+chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
+
+# ✅ Laravel setup
 php artisan config:clear
 php artisan config:cache
 php artisan migrate --force
