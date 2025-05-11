@@ -1,29 +1,18 @@
 #!/usr/bin/env bash
-set -e
+set -o errexit
 
-echo "📦 Installing dependencies..."
+# Install PHP dependencies
 composer install --no-dev --optimize-autoloader
 
-echo "🗄️ Creating SQLite database..."
-touch /tmp/database.sqlite
+# Create database folder and SQLite file
+mkdir -p /var/www/database
+touch /var/www/database/database.sqlite
 
-echo "🔐 App key setup..."
-php artisan key:generate || echo "App key exists"
-
-echo "🔧 Fixing permissions..."
+# Fix permissions
 chmod -R 775 storage bootstrap/cache
 
-echo "🔄 Clearing caches..."
+# Laravel setup
 php artisan config:clear
-php artisan view:clear
-
-echo "🔗 Linking storage..."
-php artisan storage:link
-
-echo "📦 Caching configuration..."
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-echo "🛠 Running migrations..."
 php artisan migrate --force
+php artisan storage:link
