@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: laravel-sqlite-app
-    env: docker
-    plan: free
-    buildCommand: "./render-build.sh"
-    startCommand: "php-fpm"
-    autoDeploy: true
