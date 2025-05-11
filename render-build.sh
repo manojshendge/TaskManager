@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Create SQLite database file if using SQLite
-mkdir -p /var/www/database
-touch /var/www/database/database.sqlite
+echo "🧱 Creating SQLite DB..."
+mkdir -p database
+touch database/database.sqlite
 
-#  Fix permissions BEFORE Artisan commands
-chmod -R 775 storage bootstrap/cache
-chown -R www-data:www-data storage bootstrap/cache
+echo "🔧 Installing Composer dependencies..."
+composer install --no-dev --optimize-autoloader
 
-#  Laravel setup
-php artisan config:clear
-php artisan config:cache
-php artisan migrate --force
-php artisan storage:link
+echo "🔐 Caching config..."
+php artisan config:cache || echo "⚠️ Config cache failed"
+
+echo "🚀 Migrating..."
+php artisan migrate --force || echo "⚠️ Migration failed"
+
+echo "📂 Linking storage..."
+php artisan storage:link || echo "⚠️ Storage link failed"
+
+echo "📄 Dumping Laravel log (if any):"
+cat storage/logs/laravel.log || echo "No Laravel log found"
