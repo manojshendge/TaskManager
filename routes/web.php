@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 // Redirect root URL based on authentication status
 Route::get('/', function () {
-    return '✅ Laravel is working.';
+    return response('✅ Laravel is fully working.', 200);
 });
 
 // Authentication routes (Laravel UI)
