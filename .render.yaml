@@ -1,19 +1,11 @@
+# Exported from Render on 2025-05-11T09:19:25Z
 services:
-  - type: web
-    name: task-manager
-    env: docker
-    plan: free
-    branch: main
-    buildCommand: "./render-build.sh"
-    startCommand: "php artisan serve --host=0.0.0.0 --port=8000"
-    envVars:
-      - key: APP_ENV
-        value: production
-      - key: APP_KEY
-        generateValue: true
-      - key: APP_DEBUG
-        value: true
-      - key: DB_CONNECTION
-        value: sqlite
-      - key: DB_DATABASE
-        value: /var/www/database/database.sqlite
+- type: web
+  name: TaskManager
+  runtime: docker
+  repo: https://github.com/manojshendge/TaskManager
+  plan: free
+  region: oregon
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+version: "1"
