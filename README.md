@@ -1,7 +1,7 @@
 # ✅ Task Manager App
 
 A simple and efficient task management application built with **Laravel + Vite**. It allows users to create, update, delete tasks and receive **email reminders 3 days before due dates**.
-
+# All features are tested and working fine Like Authetication and CRUD 
 ---
 
 ## 📸 Screenshots
